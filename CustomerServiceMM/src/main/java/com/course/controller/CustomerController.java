@@ -1,12 +1,9 @@
 package com.course.controller;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +17,8 @@ import com.course.dto.CustomerRequest;
 import com.course.dto.CustomerResponse;
 import com.course.service.CustomerService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping
 public class CustomerController {
@@ -27,7 +26,7 @@ public class CustomerController {
     CustomerService customerService;
     
     @PostMapping("/add")
-	public CustomerResponse addCustomer(@RequestBody CustomerRequest customerRequest) {
+	public CustomerResponse addCustomer(@Valid @RequestBody CustomerRequest customerRequest) {
 		return customerService.addCustomer(customerRequest);	
 	}
     
@@ -46,7 +45,7 @@ public class CustomerController {
     }
     
     @PutMapping("/updateCustomer/{id}")
-    public CustomerResponse updateCustomer(@PathVariable int id, @RequestBody CustomerRequest customerRequest) {
+    public CustomerResponse updateCustomer(@PathVariable int id,@Valid  @RequestBody CustomerRequest customerRequest) {
     	return customerService.updateCustomer(id, customerRequest);
     }
     

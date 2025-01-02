@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import com.course.dto.CustomerRequest;
 import com.course.dto.CustomerResponse;
 import com.course.entity.Customer;
+import com.course.exception.ResourceNotFoundException;
 import com.course.repository.CustomerRepository;
 
 @Service
@@ -64,7 +65,9 @@ public class CustomerService {
 			newCustomer.setId(id);
 			return modelMapper.map(customerRepository.save(newCustomer), CustomerResponse.class);
 		}
-		return null;
+		else {
+			 throw new ResourceNotFoundException("Customer with ID " + id + " not found.");
+		}
 	}
 
 	public List<CustomerResponse> getCustomerByName(String name) {
